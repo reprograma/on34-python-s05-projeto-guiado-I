@@ -2,7 +2,7 @@
   <img src="assets/reprograma-fundos-claros.png" alt="logo reprograma" width="500">
 </h1>
 
-# Tema da Aula
+# Projeto guiado #1
 
 Turma Online On34 | Python | Semana 05 | 2024 | <a href="https://www.linkedin.com/in/mayumi-shingaki/" target="_blank" rel="noopener noreferrer">Professora Mayumi Shingaki</a>
 
