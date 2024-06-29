@@ -72,7 +72,7 @@ def obter_media_ponderada(nome):
     peso_participacao = 0.2 #Coloco o peso de participação
     nota_participacao = dataset[(nome)]["Participação"] #Recupero a nota de participação
     media_ponderada = (media_total * peso_media + nota_participacao * peso_participacao) / (peso_media + peso_participacao) #Calculo a media ponderada
-    
+
     return media_ponderada
 
 def obter_media(nome):
@@ -86,6 +86,8 @@ def obter_resultado(nome, media):
         return "Reprovada"
     elif media >= 6:
         return "Aprovada"
+    elif media >=4:
+        return "Recuperação"
     else:
         return "Reprovada"
 
