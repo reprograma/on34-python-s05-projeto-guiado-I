@@ -35,7 +35,7 @@ def obter_presenca():
                 presenca = eval(entrada) #Valido se entrada é booleana
                 aulas.append(presenca) #Insiro a aula na minha lista "aulas"
                 break #Caso ok, posso sair do loop e seguir com for
-            except ValueError: #Caso dê um problema, ele volta ao início do while e tenta novamente
+            except NameError: #Caso dê um problema, ele volta ao início do while e tenta novamente
                 print("Entrada inválida. Por favor, insira True ou False.")
    
     return aulas
@@ -84,11 +84,9 @@ def obter_resultado(nome, media):
     qtd_faltas = dataset[(nome)]["Presença"].count(False) #Count conta a quantidade de vezes que o False aparece na lista
     if qtd_faltas > 2: #Retorna reprovada para quantidade de faltas maior que 2
         return "Reprovada"
-    elif media >= 6:
-        return "Aprovada"
-    elif media >=4:
-        return "Recuperação"
-    else:
+    elif media < 6:
         return "Reprovada"
+    else:
+        return "Aprovada"
 
 main()
