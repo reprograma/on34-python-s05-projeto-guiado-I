@@ -16,7 +16,9 @@ def obter_dados_aluna():
     print("Insira os seguintes dados: ")
     nome = input("Nome da aluna: ") #Recebo nome da aluna
     turma = input("Turma da aluna: ") #Recebo nome a turma
+    presenca = bool(input("Presença da estudante: "))
     
+
     notas = obter_notas() #Chamo a função de pegar as notas para alimentar minha lista "notas"
     
     salvar_dados_aluna(nome, turma, notas)
@@ -40,11 +42,38 @@ def obter_notas():
     
     return notas
 
-def salvar_dados_aluna(nome, turma, notas):
+def presencas():
+    print("Agora vamos calcular a presença da estudante")
+    ata = []
+    numero_de_aulas = int(input("Houveram quantas aulas?: "))
+
+    for contador in range(numero_de_aulas):
+        while True:
+            entrada = bool(input(f'Insira a presença da aluna do dia {contador+1} (True ou False): '))
+            try: 
+                presenca_dia = float(entrada) 
+                ata.append(presenca_dia) 
+                break
+            except ValueError: 
+                print("Entrada inválida. Por favor, insira um número válido.")
+
+    if sum(ata) >= (numero_de_aulas)*0.75:
+        lista_presenca = (numero_de_aulas)*0.75
+    else:
+        lista_presenca = (numero_de_aulas)*0.75
+        print("Estudante reprovada por falta.")
+    
+
+    lista_presenca = obter_media()
+ 
+
+def salvar_dados_aluna(nome, turma, notas, lista_presenca, nota_participacao):
     chave = (nome) #Crio uma tupla com o nome
     dataset[chave] = { #Adiciono no dicionário os dados que peguei na função obter_dados_aluna
         "Turma": turma,
         "Notas": notas,
+        "Presença": lista_presenca,
+        "Nota de participação": nota_participacao,
     }
     
 def obter_media(nome):
@@ -57,5 +86,6 @@ def obter_resultado(media):
         return "Aprovado"
     else:
         return "Reprovado"
+    
 
 main()
