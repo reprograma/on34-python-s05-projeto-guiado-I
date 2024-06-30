@@ -136,7 +136,8 @@ def obter_resultado(nome, media_ponderada, numero_de_aulas):
 
 def recuperacao():
     while True:
-        situacao = input("Responda 'sim' ou 'não', você fez a prova de recuperação? ").strip().lower()
+        situacao = input(
+            "Responda 'sim' ou 'não', você fez a prova de recuperação? ").strip().lower()
         if situacao == "sim":
             nota_rec = float(input("Digite sua nota de recuperação: "))
             print(f'Confirmando a sua nota de recuperação, ela é {nota_rec}.')
