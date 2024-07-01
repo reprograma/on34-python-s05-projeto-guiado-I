@@ -38,8 +38,8 @@ def obter_opcao():
     
 def incluir_nova_aluna():
     print("Para incluir uma nova estudante responda as seguintes perguntas: ")
-    nome = input("Digite o primeiro nome da aluna: ")
-    sobrenome = input("Digite o sobrenome da aluna: ")
+    nome = input("Digite o primeiro nome da aluna: ").strip().capitalize()
+    sobrenome = input("Digite o sobrenome da aluna: ").strip().capitalize()
     turma = input("Digite a turma da aluna: ")
     notas = obter_notas()
     presenca = presencas()
@@ -109,8 +109,8 @@ def consultar_lista_alunas():
         pprint.pprint(f"Nome: {nome} {sobrenome}, Turma: {info['Turma']}")
     
 def consultar_faltas_aluna():
-    nome = input("Digite o primeiro nome da aluna: ")
-    sobrenome = input("Digite o sobrenome da aluna: ")
+    nome = input("Digite o primeiro nome da aluna: ").strip().capitalize()
+    sobrenome = input("Digite o sobrenome da aluna: ").strip().capitalize()
     chave = (nome, sobrenome)
     if chave in dataset:
         presenca = dataset[chave]["Presença"]
@@ -120,8 +120,8 @@ def consultar_faltas_aluna():
         print("Aluna não foi encontrada.")
     
 def consultar_notas_aluna():
-    nome = input("Digite o primeiro nome da aluna: ")
-    sobrenome = input("Digite o sobrenome da aluna: ")
+    nome = input("Digite o primeiro nome da aluna: ").strip().capitalize()
+    sobrenome = input("Digite o sobrenome da aluna: ").strip().capitalize()
     chave = (nome, sobrenome)
     if chave in dataset:
         notas = dataset[chave]["Notas"]
@@ -130,8 +130,8 @@ def consultar_notas_aluna():
         print("Aluna não foi encontrada.")
     
 def consultar_status_aprovacao():
-    nome = input("Digite o primeiro nome da aluna: ")
-    sobrenome = input("Digite o sobrenome da aluna: ")
+    nome = input("Digite o primeiro nome da aluna: ").strip().capitalize()
+    sobrenome = input("Digite o sobrenome da aluna: ").strip().capitalize()
     chave = (nome, sobrenome)
     if chave in dataset:
         notas = dataset[chave]["Notas"]
@@ -141,10 +141,10 @@ def consultar_status_aprovacao():
         media = sum(notas) / len(notas)
         num_presenca = presenca.count(True)
         
-        if media >= 6 and participacao >= 6 and num_presenca >= 80*len(presenca):
+        if media >= 6 and participacao >= 6 and num_presenca >= 0.8*len(presenca):
             print(f"A aluna {nome} {sobrenome} foi aprovada! Sua média é de {media}.")
         else:
-            print(f"A aluna {nome} {sobrenome} não foi aprovada. Sua média é de {media}.")
+            print(f"A aluna {nome} {sobrenome} não foi aprovada. Sua média é de {media}, nota de participação é de {participacao} e presença é {num_presenca}.")
     else:
         print("Aluna não foi encontrada.")
 
