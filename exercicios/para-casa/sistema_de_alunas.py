@@ -36,9 +36,27 @@ def obter_opcao():
         return codigo_opcao
     
 def incluir_nova_aluna():
-    pass
-    #TODO - Implentar a função
+    print("Insira os seguintes dados: ")
+    nome = input("Nome da aluna: ") #Recebo nome da aluna
+    sobrenome = input("Sobrenome da aluna: ") #Recebo sobrenome da aluna
+    turma = input("Turma da aluna (nº): ") #Recebo nome a turma
+    #lista_presenca = obter_presenca() #Recebo a lista de presença com 'True' ou 'False'
+    #lista_notas = obter_notas() #Chamo a função de pegar as notas para alimentar minha lista "notas"
+    nota_participacao = float(input("Participação da aluna: ")) #Recebo nota de participação
+    proximo = (input("ATENÇÃO: PRIMEIRO COMMIT - ainda faltam parrtes por implementar!"))
+    #salvar_dados_aluna(nome, turma, lista_notas, lista_presenca, nota_participacao)
+    salvar_dados_aluna(nome, turma, nota_participacao)
     
+    return nome
+
+def salvar_dados_aluna(nome, turma, notas, nota_participacao):
+    chave = (nome) #Crio uma tupla com o nome
+    dataset[chave] = { #Adiciono no dicionário os dados que peguei na função obter_dados_aluna
+        "Turma": turma,
+        "Notas": notas,
+        "Participação": nota_participacao
+    }
+#print(consultar_lista_alunas)
 def consultar_lista_alunas():
     pass
     #TODO - Implentar a função
