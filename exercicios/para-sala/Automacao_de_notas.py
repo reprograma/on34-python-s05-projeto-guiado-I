@@ -9,6 +9,9 @@ def main():
         media_ponderada = obter_media_ponderada(nome) #Chamo a função de calcular a média da aluna
         resultado = obter_resultado(nome, media_ponderada) #Chamo a função para obter resultado
         
+        if resultado == "Reprovada":
+            calcula_recuperacao(nome)
+            
         print(f"A aluna {nome} da turma {dataset[(nome)]["Turma"]} está {resultado}. A média dela foi: {media_ponderada}.")
         
 def obter_dados_aluna():
@@ -80,13 +83,28 @@ def obter_media(nome):
     media = float(sum(notas)/len(notas)) #sum = função do python que soma todos os elementos / len = função que retorna tamanho da lista (quantidade)
     return media
 
-def obter_resultado(nome, media):
+def obter_resultado(nome, media_ponderada):
     qtd_faltas = dataset[(nome)]["Presença"].count(False) #Count conta a quantidade de vezes que o False aparece na lista
+    
     if qtd_faltas > 2: #Retorna reprovada para quantidade de faltas maior que 2
         return "Reprovada"
-    elif media < 6:
-        return "Reprovada"
+    
+    if media_ponderada < 6:
+       if media_ponderada >= 4:
+           return "Em recuperação"
+       else:
+           return "Reprovada"
     else:
         return "Aprovada"
+    
+def calcula_recuperacao(nome):
+    recuperacao = input("Aluna fez prova de recuperação? S/N:")
+    
+    if recuperacao == "S":
+        nota_recuperacao = float(input("Insira a nota da prova de recuperação: "))
+        dataset[(nome)]["Recuperação"] = True
+        dataset[(nome)]["Nota de Recuperação"] = nota_recuperacao
+    else:
+        dataset[(nome)]["Recuperação"] = False
 
 main()
