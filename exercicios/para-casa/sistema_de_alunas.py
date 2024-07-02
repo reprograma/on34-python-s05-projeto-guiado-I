@@ -52,6 +52,9 @@ def incluir_nova_aluna():
 incluir_nova_aluna()
 nova_aluna = incluir_nova_aluna
 
+
+
+
 def consultar_faltas_aluna():
     quantidade_aulas = input("Quantidade de aulas: ") #Recebo a quantidade de aulas
     aulas = [] #Criei uma lista para receber a presença
@@ -70,6 +73,32 @@ def consultar_faltas_aluna():
          
 consultar_faltas_aluna()
 
+def consultar_notas_aluna():
+    quantidade_notas = input("Quantidade de notas: ") #Recebo a quantidade de notas
+    notas = [] #Criei uma lista para receber as notas
 
+    for contador in range(int(quantidade_notas)): 
+        #Usamos o for em contagens definidas - o contador vai de 0 até quantidade de notas
+        while True: #Usamos quando não sabemos a quantidade de repetições    
+            entrada = input(f"Insira a nota #{contador + 1}: ") #Para cada nota, insiro o valor - {contador + 1} indica a nota atual
+            try: #Faço uma tentativa de adicionar uma nota na lista
+                nota = float(entrada) #Converto a entrada em float
+                notas.append(nota) #Insiro a nota na minha lista "notas"
+                break #Caso ok, posso sair do loop e seguir com for
+            except ValueError: #Caso dê um problema, ele volta ao início do while e tenta novamente
+                print("Entrada inválida. Por favor, insira um número válido.")
+
+    print(notas)          
+    return notas
+
+consultar_notas_aluna()
+
+def consultar_lista_alunas():
+    if incluir_nova_aluna == True:
+        print(incluir_nova_aluna)
+    else:
+        print('Não há registros.')
+
+consultar_lista_alunas()
 
 main()
