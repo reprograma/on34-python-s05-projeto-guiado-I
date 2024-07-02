@@ -94,9 +94,12 @@ def incluir_nova_aluna():
     
 def consultar_lista_alunas():
     nomes_completos = dataset.keys()
-    lista_nomes = [nome_completo[0] for nome_completo in nomes_completos]
-    print("A lista com os nomes das alunas cadastradas é: ")
-    nomes = [print("-", nome) for nome in lista_nomes]
+    if not nomes_completos:
+        print("Não há registros de alunas cadastradas")
+    else:
+        lista_nomes = [nome_completo[0] for nome_completo in nomes_completos]
+        print("A lista com os nomes das alunas cadastradas é: ")
+        nomes = [print("-", nome) for nome in lista_nomes]
     
 def consultar_faltas_aluna():
     nome = input("Informe o nome da aluna: ")
