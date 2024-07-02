@@ -121,8 +121,20 @@ def consultar_notas_aluna():
         print("Não foi possível consultar as notas da aluna. O nome completo informado não corresponde a uma aluna cadastrada.")
     
 def consultar_status_aprovacao():
-    pass
-    #TODO - Implentar a função
-    
+    nome = input("Informe o nome da aluna: ")
+    sobrenome = input("Informe o sobrenome da aluna: ")
+    try:
+        notas = dataset[(nome, sobrenome)]["Notas"]
+        nota_participacao = dataset[(nome, sobrenome)]["Participação"]
+        media = (sum(notas) + nota_participacao) / (len(notas) + 1)
+        presencas = dataset[(nome, sobrenome)]["Presença"]
+        percentual_presenca = (presencas.count(True) / len(presencas)) * 100
+        if percentual_presenca >= 80 and media >= 6:
+            status = "aprovada"
+        else:
+            status = "reprovada"
+        print(f"A aluna {nome} {sobrenome} está {status}. A sua média final é {media}")
+    except KeyError:
+        print("Não foi possível consultar o status de aprovação. O nome completo informado não corresponde a uma aluna cadastrada.")
 
 main()
