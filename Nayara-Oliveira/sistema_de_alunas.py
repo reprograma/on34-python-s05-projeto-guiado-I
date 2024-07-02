@@ -99,8 +99,16 @@ def consultar_lista_alunas():
     nomes = [print("-", nome) for nome in lista_nomes]
     
 def consultar_faltas_aluna():
-    pass
-    #TODO - Implentar a função
+    nome = input("Informe o nome da aluna: ")
+    sobrenome = input("Informe o sobrenome da aluna: ")
+    try:
+        faltas = dataset[(nome, sobrenome)]["Presença"].count(False)
+        if faltas == 1:
+            print(f"A aluna {nome} {sobrenome} possui {faltas} falta")
+        else:
+            print(f"A aluna {nome} {sobrenome} possui {faltas} faltas")
+    except KeyError:
+        print("Não foi possível consultar as faltas da aluna. O nome completo informado não corresponde a uma aluna cadastrada.")
     
 def consultar_notas_aluna():
     pass
