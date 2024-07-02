@@ -37,20 +37,18 @@ def obter_opcao():
     
 def incluir_nova_aluna():
     print("Insira os seguintes dados: ")
-    nome = input("Nome da aluna: ") #Recebo nome da aluna
-    sobrenome = input("Sobrenome da aluna: ") #Recebo sobrenome da aluna
-    turma = input("Turma da aluna (nº): ") #Recebo nome a turma
+    nome = str(input("Nome da aluna: ")) #Recebo nome da aluna
+    sobrenome = str(input("Sobrenome da aluna: ")) #Recebo sobrenome da aluna
+    turma = int(input("Turma da aluna (nº): ")) #Recebo nome a turma
     #lista_presenca = consultar_faltas_aluna() #Recebo a lista de presença com 'True' ou 'False'
     #lista_notas = consultar_notas_aluna() #Chamo a função de pegar as notas para alimentar minha lista "notas"
     nota_participacao = float(input("Participação da aluna: ")) #Recebo nota de participação
-    
-    #salvar_dados_aluna(nome, sobrenome, turma, nota_participacao)
     print('Aluna adicionada com sucesso!' )
+   
     
     return nome
 
 incluir_nova_aluna()
-nova_aluna = incluir_nova_aluna
 
 def consultar_faltas_aluna():
     quantidade_aulas = input("Quantidade de aulas: ") #Recebo a quantidade de aulas
@@ -90,4 +88,4 @@ def consultar_notas_aluna():
 
 consultar_notas_aluna()
 
-main()
+   
