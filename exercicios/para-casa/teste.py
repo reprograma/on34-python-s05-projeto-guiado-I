@@ -3,7 +3,8 @@ from dataset_alunas import dataset
 def main():
     print("\n---  Seja bem vinda a Escola do Reprograma!  ---")
     print("Sistema de informações de alunas")
-    
+
+        
     while True:
         cod_opcao = obter_opcao()
         
@@ -51,13 +52,24 @@ def incluir_nova_aluna():
 incluir_nova_aluna()
 
 
-def consultar_lista_alunas():
-    if incluir_nova_aluna == True:
-        print(incluir_nova_aluna)
-    else:
-        print('Não há registros.')
+def consultar_lista_alunas(dataset):
+    nome = str(input('Digite o nome da Aluna: '))
+    sobrenome = str(input('Digite o sobrenome da Aluna: '))
+    for nome, sobrenome in dataset:
+        print(nome, sobrenome)
+    return nome, sobrenome
 
-consultar_lista_alunas()
+consultar_lista_alunas(dataset)
+
+def salvar_dados_aluna(nome, sobrenome, turma, lista_presenca, lista_notas, nota_participacao):
+    chave = (nome, sobrenome, lista_presenca, lista_notas, nota_participacao) #Crio uma tupla com o nome
+    dataset[chave] = { #Adiciono no dicionário os dados que peguei na função obter_dados_aluna
+        "Turma": turma,
+        "Presença": lista_presenca,
+        "Notas": lista_notas,
+        "Participação": nota_participacao
+    }
+print(consultar_lista_alunas)
 
 def consultar_faltas_aluna():
     quantidade_aulas = input("Quantidade de aulas: ") #Recebo a quantidade de aulas
