@@ -52,6 +52,15 @@ def incluir_nova_aluna():
 incluir_nova_aluna()
 nova_aluna = incluir_nova_aluna
 
+
+def consultar_lista_alunas():
+    if incluir_nova_aluna == True:
+        print(incluir_nova_aluna)
+    else:
+        print('Não há registros.')
+
+consultar_lista_alunas()
+
 def consultar_faltas_aluna():
     quantidade_aulas = input("Quantidade de aulas: ") #Recebo a quantidade de aulas
     aulas = [] #Criei uma lista para receber a presença
