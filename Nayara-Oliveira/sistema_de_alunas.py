@@ -111,8 +111,14 @@ def consultar_faltas_aluna():
         print("Não foi possível consultar as faltas da aluna. O nome completo informado não corresponde a uma aluna cadastrada.")
     
 def consultar_notas_aluna():
-    pass
-    #TODO - Implentar a função
+    nome = input("Informe o nome da aluna: ")
+    sobrenome = input("Informe o sobrenome da aluna: ")
+    try:
+        notas = dataset[(nome, sobrenome)]["Notas"]
+        for i in range(len(notas)):
+            print(f"Na avaliação #{i+1}, a nota da aluna {nome} {sobrenome} foi {notas[i]}")
+    except KeyError:
+        print("Não foi possível consultar as notas da aluna. O nome completo informado não corresponde a uma aluna cadastrada.")
     
 def consultar_status_aprovacao():
     pass
