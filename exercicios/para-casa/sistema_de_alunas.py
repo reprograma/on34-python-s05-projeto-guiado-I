@@ -17,7 +17,7 @@ def main():
 def obter_opcao():
     codigo_opcao = 0
 
-    while codigo_opcao not in [1, 2, 3, 4, 5]:
+    while codigo_opcao not in [1, 2, 3, 4, 5, 6]:
         try:
             codigo_opcao = int(input("\nEscolha uma opção:\n"
                                     "1 - Incluir uma nova aluna\n"
@@ -28,7 +28,7 @@ def obter_opcao():
                                     "6 - Sair do sistema\n"
                                     "Opção: "))
                 
-            if codigo_opcao not in [1, 2, 3, 4, 5]:
+            if codigo_opcao not in [1, 2, 3, 4, 5, 6]:
                 print("Opção inválida. Por favor, escolha uma opção válida (1 a 5).\n")
         except ValueError:
             print("Entrada inválida. Por favor, digite um número inteiro.\n")
