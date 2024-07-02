@@ -9,6 +9,11 @@ def main():
         media_ponderada = obter_media_ponderada(nome) #Chamo a função de calcular a média da aluna
         resultado = obter_resultado(nome, media_ponderada) #Chamo a função para obter resultado
         
+        if resultado == "Em recuperação":
+            fez_recuperacao = obter_recuperacao(nome) #Verifica se a aluna fez prova de recuperação
+            if fez_recuperacao == True:
+                resultado = calcula_recuperacao(nome)
+         
         print(f"A aluna {nome} da turma {dataset[(nome)]["Turma"]} está {resultado}. A média dela foi: {media_ponderada}.")
         
 def obter_dados_aluna():
@@ -66,6 +71,7 @@ def salvar_dados_aluna(nome, turma, notas, lista_presenca, nota_participacao):
         "Participação": nota_participacao
     }
 
+
 def obter_media_ponderada(nome):
     media_total = obter_media(nome) #Calculo media
     peso_media = 0.8 #Coloco o peso das notas
@@ -80,13 +86,47 @@ def obter_media(nome):
     media = float(sum(notas)/len(notas)) #sum = função do python que soma todos os elementos / len = função que retorna tamanho da lista (quantidade)
     return media
 
-def obter_resultado(nome, media):
+def obter_resultado(nome, media_ponderada):
     qtd_faltas = dataset[(nome)]["Presença"].count(False) #Count conta a quantidade de vezes que o False aparece na lista
-    if qtd_faltas > 2: #Retorna reprovada para quantidade de faltas maior que 2
-        return "Reprovada"
-    elif media < 6:
-        return "Reprovada"
+    qtd_aulas = len(dataset[(nome)]["Presença"])
+    percentual_de_faltas = (qtd_faltas / qtd_aulas) * 100
+    
+    if percentual_de_faltas > 20: #Retorna reprovada para quantidade de faltas maior que 2
+        return "Reprovada por falta"
+    
+    if media_ponderada < 6:
+       if media_ponderada >= 4:
+           return "Em recuperação"
+       else:
+           return "Reprovada"
     else:
         return "Aprovada"
+    
+def obter_recuperacao(nome):
+    recuperacao = input("Aluna fez prova de recuperação? S/N:") #Obtem se a pessoa fez recuperação
+    
+    if recuperacao == "S": #Verifica se a pessoa colocou S - Sim para recuperação
+        nota_recuperacao = float(input("Insira a nota da prova de recuperação: ")) #Recebe a nota de recuperação
+        dataset[(nome)]["Nota de Recuperação"] = nota_recuperacao #Salva a nota de recuperação
+        return True #Retorna True (Verdadeiro) para recuperação
+    else:
+        return False #Retorna False (Falso) para recuperação
+        
+def calcula_recuperacao(nome):
+    notas = dataset[(nome)]["Notas"] #Recupero minha lista de notas
+    nota_recuperacao = dataset[(nome)]["Nota de Recuperação"] #Recupero nota de recuperação
+    menor_nota = min(notas) #Procuro a menor nota da minha lista de notas
+    
+    if menor_nota < nota_recuperacao: #Verifico se a menor nota é menor que a de recuperação
+        for indice in range(len(notas)): #Faço um for para todas as notas da minha lista de notas
+            if notas[indice] == menor_nota: #Vejo se a nota atual é a menor nota
+                notas[indice] = nota_recuperacao #Troco a menor nota pela nota de recuperação
+                break #Paro caso eu tenha feito essa troca
+        dataset[(nome)]["Notas"] = notas #Troco minha lista de notas antigas pela nova com a nota nova
+            
+    nova_media = obter_media_ponderada(nome) #Calculo a media ponderada com a nova nota de recuperação
+    novo_resultado = obter_resultado(nome, nova_media) #Calculo resultado de novo 
+    
+    return novo_resultado
 
 main()
