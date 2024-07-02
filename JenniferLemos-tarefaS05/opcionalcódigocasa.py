@@ -1,4 +1,4 @@
-### Exercico Casa/S05 - com "opcinal" sugerido pelo desafio.
+### Exercico Casa/S05 - com "opcional" sugerido pelo desafio.
 
 dataset = {
     'alunas': [] 
