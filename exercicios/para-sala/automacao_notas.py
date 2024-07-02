@@ -12,14 +12,18 @@ def main():
         # Chamo a função de calcular a média da aluna
         media_ponderada = obter_media_ponderada(nome)
         resultado = obter_resultado(nome, media_ponderada, numero_de_aulas)
-        recup = recuperacao()
-        if resultado == "aprovada" or resultado == "reprovada por falta":
-            print(f"A aluna {nome} da turma {dataset[nome]['Turma']} está {
-                  resultado}. A média final dela foi: {media_ponderada:.2f}.")
+
+
+        if resultado == "aprovada" or resultado == "reprovada por falta" or resultado == "reprovada":
+            print(f"A aluna {nome} da turma {dataset[nome]['Turma']} está {resultado}. A média final dela foi: {media_ponderada:.2f}.")
         else:
-            recuperacao()
-            print(f"A aluna {nome} da turma {dataset[nome]['Turma']} está {
-                  recup}. A média final dela foi: {media_ponderada:.2f}.")
+            fez_recuperacao = obter_recuperacao(nome) #Verifica se a aluna fez prova de recuperação
+            if fez_recuperacao == True:
+                 newresultado = calcular_recuperacao(nome, numero_de_aulas)
+            else:
+                newresultado = "reprovada"
+
+            print(f"A aluna {nome} da turma {dataset[nome]['Turma']} está {newresultado}. A média final dela foi: {obter_media_ponderada(nome):.2f}.")
 
 
 def obter_dados_aluna(numero_de_aulas):
@@ -128,25 +132,50 @@ def obter_resultado(nome, media_ponderada, numero_de_aulas):
     lista_presenca, _ = dataset[nome]["Presença"]  # Desempacotar a tupla
     if lista_presenca <= numero_de_aulas * 0.8:  # Retorna reprovada para quantidade de faltas maior que 2
         return "reprovada por falta"
-    elif media_ponderada >= 6:
-        return "aprovada"
+    
+    if media_ponderada < 6:
+        if media_ponderada >= 4:
+            return "em recuperação"
+        else:
+            return "reprovada"
     else:
-        return "reprovada"
+        return "aprovada"
+        
+def resultado_da_final(media_ponderada):
+    if media_ponderada < 6:
+        return "reprovada na final"
+    else:
+        return "aprovada na final"
 
-
-def recuperacao():
+def obter_recuperacao(nome):
     while True:
-        situacao = input(
-            "Responda 'sim' ou 'não', você fez a prova de recuperação? ").strip().lower()
+        situacao = input("Responda 'sim' ou 'não', você fez a prova de recuperação? ").strip().lower()
         if situacao == "sim":
             nota_rec = float(input("Digite sua nota de recuperação: "))
             print(f'Confirmando a sua nota de recuperação, ela é {nota_rec}.')
-            break
-        elif situacao == "não":
-            return "reprovada"
-            break
+            dataset[(nome)]['Recuperação'] = nota_rec #salvar nota de recuperação
+            return True
         else:
-            print("Por favor digite 'sim' ou 'não'")
+            return False
+
+def calcular_recuperacao(nome, numero_de_aulas):
+    notas = dataset[(nome)]['Notas'] #recuperando a lista de notas
+    nota_rec =  dataset[(nome)]['Recuperação']
+    menor_nota = min(notas) #menor nota da lista de notas que será substituida pela nota de recuperação
+
+    if menor_nota < nota_rec:
+        for indice in range(len(notas)):
+            if notas[indice] == menor_nota:
+                notas[indice] = nota_rec
+                break #para logo após fazer essa troca uma vez
+            dataset[(nome)]["Notas"] = notas
+
+    nova_media = obter_media_ponderada(nome)
+    novo_resultado = resultado_da_final(nova_media)
+
+    return novo_resultado
+
+
 
 
 main()
