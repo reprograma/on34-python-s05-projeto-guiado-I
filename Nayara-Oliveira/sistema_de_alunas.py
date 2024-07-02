@@ -129,10 +129,10 @@ def consultar_status_aprovacao():
     try:
         notas = dataset[(nome, sobrenome)]["Notas"]
         nota_participacao = dataset[(nome, sobrenome)]["Participação"]
-        media = (sum(notas) + nota_participacao) / (len(notas) + 1)
+        media = sum(notas) / len(notas)
         presencas = dataset[(nome, sobrenome)]["Presença"]
         percentual_presenca = (presencas.count(True) / len(presencas)) * 100
-        if percentual_presenca >= 80 and media >= 6:
+        if percentual_presenca >= 80 and media >= 6 and nota_participacao > 6:
             status = "aprovada"
         else:
             status = "reprovada"
