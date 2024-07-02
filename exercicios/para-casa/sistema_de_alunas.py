@@ -50,5 +50,25 @@ def incluir_nova_aluna():
     return nome
 
 incluir_nova_aluna()
+nova_aluna = incluir_nova_aluna
+
+def consultar_faltas_aluna():
+    quantidade_aulas = input("Quantidade de aulas: ") #Recebo a quantidade de aulas
+    aulas = [] #Criei uma lista para receber a presença
+    
+    for contador in range(int(quantidade_aulas)):
+        while True:    
+            presenca = input(f"Insira a presença da aula #{contador + 1}: ")        
+            try: #Faço uma tentativa de adicionar uma nota na lista
+                chamada = bool(presenca) #Valido se entrada é booleana
+                aulas.append(presenca) #Insiro a aula na minha lista "aulas"                
+                break #Caso ok, posso sair do loop e seguir com for
+            except ValueError: #Caso dê um problema, ele volta ao início do while e tenta novamente
+                        print("Entrada inválida. Por favor, insira True ou False.")
+                    
+    print(aulas)
+         
+consultar_faltas_aluna()
+
 
 main()
