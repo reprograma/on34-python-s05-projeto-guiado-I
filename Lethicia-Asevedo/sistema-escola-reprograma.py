@@ -92,8 +92,20 @@ def consultar_notas_aluna():
         print(f"Erro: Aluna {nome} {sobrenome} não encontrada.")
     
 def consultar_status_aprovacao():
-    pass
-    #TODO - Implentar a função
+    nome = input("Digite o nome da aluna: ")
+    sobrenome = input("Digite o sobrenome da aluna: ")
+    
+    aluna = dataset.get((nome, sobrenome))
+    if aluna:
+        notas = aluna["Notas"]
+        media = sum(notas) / len(notas)
+        percentual_presenca = aluna["Presença"].count(True) / len(aluna["Presença"])
+        participacao = aluna["Participação"]
+        
+        status_aprovacao = "aprovada" if media >= 6 and percentual_presenca >= 0.8 and participacao > 6 else "reprovada"
+        print(f"A aluna {nome} {sobrenome} está {status_aprovacao} com média {media:.2f}.")
+    else:
+        print(f"Erro: Aluna {nome} {sobrenome} não encontrada.")
     
 
 main()
