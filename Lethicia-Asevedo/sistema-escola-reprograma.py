@@ -62,16 +62,23 @@ def incluir_nova_aluna():
     print(f"Aluna {nome} {sobrenome} adicionada com sucesso!")
     
 def consultar_lista_alunas():
-    pass
-    #TODO - Implentar a função
-    
-def consultar_lista_alunas():
     if not dataset:
         print("Não há alunas cadastradas.")
     else:
         print("\nLista de alunas cadastradas:")
         for nome, sobrenome in dataset.keys():
             print(f"- {nome} {sobrenome}")
+    
+def consultar_faltas_aluna():
+    nome = input("Digite o nome da aluna: ")
+    sobrenome = input("Digite o sobrenome da aluna: ")
+    
+    aluna = dataset.get((nome, sobrenome))
+    if aluna:
+        faltas = aluna["Presença"].count(False)
+        print(f"A aluna {nome} {sobrenome} tem {faltas} faltas.")
+    else:
+        print(f"Erro: Aluna {nome} {sobrenome} não encontrada.")
     
 def consultar_notas_aluna():
     pass
