@@ -81,8 +81,15 @@ def consultar_faltas_aluna():
         print(f"Erro: Aluna {nome} {sobrenome} não encontrada.")
     
 def consultar_notas_aluna():
-    pass
-    #TODO - Implentar a função
+    nome = input("Digite o nome da aluna: ")
+    sobrenome = input("Digite o sobrenome da aluna: ")
+    
+    aluna = dataset.get((nome, sobrenome))
+    if aluna:
+        notas = aluna["Notas"]
+        print(f"Notas da aluna {nome} {sobrenome}: {', '.join(map(str, notas))}")
+    else:
+        print(f"Erro: Aluna {nome} {sobrenome} não encontrada.")
     
 def consultar_status_aprovacao():
     pass
