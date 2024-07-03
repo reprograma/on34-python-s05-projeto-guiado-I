@@ -1,5 +1,5 @@
 ## PROJETO GUIADO S05 - 
-## SISTEMA DA ESCOLA REPROGRAMA
+## SISTEMA DA ESCOLA {REPROGRAMA}
 
 <img src="/assets/reprograma-fundos-claros.png" alt="Logo da reprograma">
 
