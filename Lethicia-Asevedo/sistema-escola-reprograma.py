@@ -36,8 +36,30 @@ def obter_opcao():
         return codigo_opcao
     
 def incluir_nova_aluna():
-    pass
-    #TODO - Implentar a função
+    nome = input("Digite o nome primeiro da aluna: ")
+    sobrenome = input("Digite o sobrenome da aluna: ")
+    turma = input("Digite a turma da aluna: ")
+    
+    try:
+        notas = list(map(float, input("Digite as notas da aluna (separadas por espaço): ").split()))
+        presencas = list(map(lambda x: x.lower() == 'true', input("Digite a presença da aluna (True/False separados por espaço): ").split()))
+        participacao = float(input("Digite a nota de participação da aluna: "))
+    except ValueError:
+        print("Erro: Entrada inválida. Certifique-se de que os dados estão no formato correto.")
+        return
+    
+    if any(nota < 0 or nota > 10 for nota in notas):
+        print("Erro: As notas devem estar entre 0 e 10.")
+        return
+    
+    dataset[(nome, sobrenome)] = {
+        "Turma": turma,
+        "Notas": notas,
+        "Presença": presencas,
+        "Participação": participacao
+    }
+    
+    print(f"Aluna {nome} {sobrenome} adicionada com sucesso!")
     
 def consultar_lista_alunas():
     pass
