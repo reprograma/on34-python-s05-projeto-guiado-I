@@ -65,9 +65,13 @@ def consultar_lista_alunas():
     pass
     #TODO - Implentar a função
     
-def consultar_faltas_aluna():
-    pass
-    #TODO - Implentar a função
+def consultar_lista_alunas():
+    if not dataset:
+        print("Não há alunas cadastradas.")
+    else:
+        print("\nLista de alunas cadastradas:")
+        for nome, sobrenome in dataset.keys():
+            print(f"- {nome} {sobrenome}")
     
 def consultar_notas_aluna():
     pass
