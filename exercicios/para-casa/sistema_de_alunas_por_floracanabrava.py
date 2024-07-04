@@ -46,6 +46,7 @@ def incluir_nova_aluna():
 
     salvar_dados_alunas(nome, sobrenome, turma, notas, presenca, participacao)
     
+    return nome
 
 def consultar_lista_alunas():
     pass
@@ -73,7 +74,7 @@ def obter_notas():
                 entrada = float(input(f"Insira a nota #{contador + 1}: "))
                 notas.append(entrada)
                 break
-            except NameError:
+            except ValueError:
                 print("Entrada inválida. Por favor, insira um número válido.")
 
     return notas 
@@ -84,18 +85,19 @@ def obter_presenca():
 
     for contador in range(int(quantidade_aulas)):
         while True:
-            entrada = eval(input(f"Insira a presença da aula #{contador + 1}: "))
-            if type(entrada) is bool:
-                aulas.append(entrada)
+            entrada = input(f"Insira a presença da aula #{contador + 1}: ")
+            try:
+                presenca = eval(entrada)
+                aulas.append(presenca)
                 break 
-            else:
+            except NameError:
                 print("Entrada inválida. Por favor, insira True ou False.")
 
     return aulas 
    
 
 def salvar_dados_alunas(nome, sobrenome, turma, notas, presenca, participacao):
-    chave = tuple(nome, sobrenome)
+    chave = (nome)
     dataset[chave] = {
         (nome, sobrenome):{
            "Turma": turma,
