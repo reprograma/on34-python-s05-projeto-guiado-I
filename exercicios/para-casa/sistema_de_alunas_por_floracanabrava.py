@@ -29,16 +29,24 @@ def obter_opcao():
                                     "Opção: "))
                 
             if codigo_opcao not in [1, 2, 3, 4, 5, 6]:
-                print("Opção inválida. Por favor, escolha uma opção válida (1 a 5).\n")
+                print("Opção inválida. Por favor, escolha uma opção válida (1 a 6).\n")
         except ValueError:
             print("Entrada inválida. Por favor, digite um número inteiro.\n")
             
         return codigo_opcao
     
 def incluir_nova_aluna():
-    pass
-    #TODO - Implentar a função
+    print("Insira os seguintes dados da aluna: ")
+    nome = input("Nome da aluna: ")
+    sobrenome = input("Agora informe o sobrenome da aluna: ")
+    turma = input ("Informe qual a turma da aluna: ")
+    notas = obter_notas()
+    presenca = obter_presenca()
+    participacao = float(input("Participação da aluna: "))
+
+    salvar_dados_alunas(nome, sobrenome, turma, notas, presenca, participacao)
     
+
 def consultar_lista_alunas():
     pass
     #TODO - Implentar a função
@@ -54,6 +62,50 @@ def consultar_notas_aluna():
 def consultar_status_aprovacao():
     pass
     #TODO - Implentar a função
-    
+
+def obter_notas():
+    quantidade_notas = 3
+    notas = []
+
+    for contador in range(int(quantidade_notas)):
+        while True:
+            try:
+                entrada = float(input(f"Insira a nota #{contador + 1}: "))
+                notas.append(entrada)
+                break
+            except NameError:
+                print("Entrada inválida. Por favor, insira um número válido.")
+
+    return notas 
+
+def obter_presenca():
+    quantidade_aulas = 5
+    aulas = [] 
+
+    for contador in range(int(quantidade_aulas)):
+        while True:
+            entrada = eval(input(f"Insira a presença da aula #{contador + 1}: "))
+            if type(entrada) is bool:
+                aulas.append(entrada)
+                break 
+            else:
+                print("Entrada inválida. Por favor, insira True ou False.")
+
+    return aulas 
+   
+
+def salvar_dados_alunas(nome, sobrenome, turma, notas, presenca, participacao):
+    chave = tuple(nome, sobrenome)
+    dataset[chave] = {
+        (nome, sobrenome):{
+           "Turma": turma,
+           "Notas": notas,
+           "Presença": presenca,
+           "Participação": participacao
+    },}
+
+
+    print("Aluna inclusa!") 
+
 
 main()
