@@ -72,8 +72,8 @@ def main():
         cod_opcao = obter_opcao()
         
         if cod_opcao == 1: incluir_nova_aluna()
-        #elif cod_opcao == 2: consultar_lista_alunas()
-        #elif cod_opcao == 3: consultar_faltas_aluna()
+        elif cod_opcao == 2: consultar_lista_alunas()
+        elif cod_opcao == 3: consultar_faltas_aluna()
         #elif cod_opcao == 4: consultar_notas_aluna()
         #elif cod_opcao == 5: consultar_status_aprovacao()
         elif cod_opcao == 6: print("Encerrando o programa..."); break
@@ -160,6 +160,12 @@ def incluir_nova_aluna():
     return nome
   
   
+def consultar_lista_alunas():
+    print(dataset.keys())
+    
+ 
   
+ 
+
   
 main()
