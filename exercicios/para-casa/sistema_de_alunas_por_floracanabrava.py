@@ -39,19 +39,30 @@ def incluir_nova_aluna():
     print("Insira os seguintes dados da aluna: ")
     nome = input("Nome da aluna: ")
     sobrenome = input("Agora informe o sobrenome da aluna: ")
-    turma = input ("Informe qual a turma da aluna: ")
+    while True:
+        turma = input ("Informe qual a turma da aluna: ")
+        if turma == "Turma A" or turma == "Turma B" or turma == "Turma C":
+            break
+        else:
+            print("Turma inválida. Você deve digitar Turma A, Turma B ou Turma C")
+
     notas = obter_notas()
     presenca = obter_presenca()
     participacao = float(input("Participação da aluna: "))
 
     salvar_dados_alunas(nome, sobrenome, turma, notas, presenca, participacao)
     
-    return nome
+    return (nome, sobrenome)
 
 def consultar_lista_alunas():
-    pass
-    #TODO - Implentar a função
-    
+
+    if not dataset:
+        print("Ainda não há alunas cadastradas")
+        return
+    else:
+        for chave in dataset.keys():
+            print(f"\nAluna: {chave[0]} {chave[1]}")
+
 def consultar_faltas_aluna():
     pass
     #TODO - Implentar a função
@@ -72,8 +83,11 @@ def obter_notas():
         while True:
             try:
                 entrada = float(input(f"Insira a nota #{contador + 1}: "))
-                notas.append(entrada)
-                break
+                if entrada < 0 or entrada > 10:
+                    print("Entrada inválida. Você deve inserir um número entre 0 e 10.")
+                else:
+                    notas.append(entrada)
+                    break
             except ValueError:
                 print("Entrada inválida. Por favor, insira um número válido.")
 
@@ -88,8 +102,11 @@ def obter_presenca():
             entrada = input(f"Insira a presença da aula #{contador + 1}: ")
             try:
                 presenca = eval(entrada)
-                aulas.append(presenca)
-                break 
+                if isinstance(presenca, bool):
+                    aulas.append(presenca)
+                    break 
+                else:
+                    print("Entrada inválida. Por favor utilize True para presente e False para ausente.")
             except NameError:
                 print("Entrada inválida. Por favor, insira True ou False.")
 
@@ -97,7 +114,7 @@ def obter_presenca():
    
 
 def salvar_dados_alunas(nome, sobrenome, turma, notas, presenca, participacao):
-    chave = (nome)
+    chave = (nome, sobrenome)
     dataset[chave] = {
         (nome, sobrenome):{
            "Turma": turma,
