@@ -72,8 +72,11 @@ def consultar_faltas_aluna():
 
     
 def consultar_notas_aluna():
-    pass
-    #TODO - Implentar a função
+    nome = input("Por favor, nos informe o nome da aluna: ")
+    sobrenome = input("Agora informe o sobrenome da aluna: ")
+
+    valores_notas = dataset[(nome, sobrenome)]["Notas"]
+    print(f"As três notas de {nome} {sobrenome} são {valores_notas[0]}, {valores_notas[1]}, {valores_notas[2]}.")
     
 def consultar_status_aprovacao():
     pass
