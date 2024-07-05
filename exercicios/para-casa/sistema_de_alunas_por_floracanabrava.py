@@ -38,7 +38,7 @@ def obter_opcao():
 def incluir_nova_aluna():
     print("Insira os seguintes dados da aluna: ")
     nome = input("Nome da aluna: ")
-    sobrenome = input("Agora informe o sobrenome da aluna: ")
+    sobrenome = input("Agora, informe o sobrenome da aluna: ")
     while True:
         turma = input ("Informe qual a turma da aluna: ")
         if turma == "Turma A" or turma == "Turma B" or turma == "Turma C":
@@ -64,8 +64,12 @@ def consultar_lista_alunas():
             print(f"\nAluna: {chave[0]} {chave[1]}")
 
 def consultar_faltas_aluna():
-    pass
-    #TODO - Implentar a função
+    nome = input("Por favor, nos informe o nome da aluna: ")
+    sobrenome = input("Agora informe o sobrenome da aluna: ")
+
+    qtd_faltas = dataset[(nome, sobrenome)]["Presença"].count(False)
+    print(f"A quantidade de faltas de {nome} {sobrenome} é {qtd_faltas}.")
+
     
 def consultar_notas_aluna():
     pass
