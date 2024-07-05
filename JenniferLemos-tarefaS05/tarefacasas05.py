@@ -4,7 +4,7 @@ from dataset_alunas import dataset
 dataset.keys
 
 def main():
-    print("\n---  Seja bem-vinda à Escola do Reprograma!  ---")
+    print("\n---  Seja bem-vinda à Escola do Reprograma! Sou a Assistente Jennifer, em que posso te ajudar?  ---")
     print("Sistema de informações de alunas")
 
     while True:
