@@ -36,24 +36,91 @@ def obter_opcao():
         return codigo_opcao
     
 def incluir_nova_aluna():
-    pass
-    #TODO - Implentar a função
+    nome = input("Insira o nome:\n")
+    sobrenome = input("Insira o sobrenome:\n")
+    turma = input("Insira a turma:\n")
+
+    notas_input = input("Insira as notas separadas por vírgula:\n")
+    notas = notas_input.split(",")
+
+    presenca_input = input("Insira as presenças separadas por vírgula (1 para presença, 0 para falta)")
+    presenca_lista = presenca_input.split(",")
+    presenca = [True if cada.strip() == "1" else False for cada in presenca_lista]   
+
+    participacao = float(input("Insira a nota de participação"))
+
+    if notas and all(0 <= len(nota) <= 10 for nota in notas):
+        global dataset
+        dataset[(nome, sobrenome)] = {
+            "Turma": turma,
+            "Notas": notas,
+            "Presença": presenca,
+            "Participação": participacao
+        }
+        print("Aluna adicionada com sucesso!")
+    else:
+        print("Verifique as notas.")
     
 def consultar_lista_alunas():
-    pass
-    #TODO - Implentar a função
+    if not dataset:
+        print("Não há alunas cadastradas.")
+    else:
+        for nome, sobrenome in dataset.keys():
+            print(f"{nome} {sobrenome}")
+
     
 def consultar_faltas_aluna():
-    pass
-    #TODO - Implentar a função
+    nome_completo = input("Nome completo da aluna: ")
+
+    aluna_encontrada = False
+    for key in dataset.keys():
+        if f"{key[0]} {key[1]}" == nome_completo:
+            faltas = dataset[key]["Presença"].count(False)
+            print(f"A aluna {nome_completo} possui {faltas} faltas.")
+            aluna_encontrada = True
+            break
+    
+    if not aluna_encontrada:
+        print(f"A aluna {nome_completo} não foi encontrada.")
+
     
 def consultar_notas_aluna():
-    pass
-    #TODO - Implentar a função
+    nome_completo = input("Nome completo da aluna: ")
+    
+    aluna_encontrada = False
+    for key in dataset.keys():
+        if f"{key[0]} {key[1]}" == nome_completo:
+            notas = dataset[key]["Notas"]
+            print(f"As notas de {nome_completo} são: {notas}")
+            aluna_encontrada = True
+            break
+    
+    if not aluna_encontrada:
+        print(f"A aluna {nome_completo} não foi encontrada.")
+
     
 def consultar_status_aprovacao():
-    pass
-    #TODO - Implentar a função
+    nome_completo = input("Nome completo da aluna: ")
     
+    aluna_encontrada = False
+    for key in dataset.keys():
+        if f"{key[0]} {key[1]}" == nome_completo:
+            notas = dataset[key]["Notas"]
+            presenca = dataset[key]["Presença"]
+            participacao = dataset[key]["Participação"]
+            
+            media = sum(notas) / len(notas)
+            
+            if media >= 6 and (presenca.count(True) / len(presenca)) >= 0.8 and participacao > 6:
+                status = "Aprovada"
+            else:
+                status = "Reprovada"
+            
+            print(f"Status de {nome_completo}: {status} | Média: {media:.2f}")
+            aluna_encontrada = True
+            break
+    
+    if not aluna_encontrada:
+        print(f"A aluna {nome_completo} não foi encontrada.")
 
 main()
