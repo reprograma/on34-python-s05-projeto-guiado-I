@@ -35,14 +35,63 @@ def obter_opcao():
             
         return codigo_opcao
     
-def incluir_nova_aluna(): #nome, sobrenome, turma, notas presença e participação 
-    nome = input("Digite o nome da aluna...")
-    sobrenome = input("Digite o sobrenome da aluna...")
-    turma = input("Digite a turma que a aluna pertence...")
-    notas = input("Digite as notas da aluna...")
-    presenca = input("Indique a presença da aluna...")
-    participacao = input("Digite a nota de participação da aluna...")
-    
+def incluir_nova_aluna(dataset): #Pegando os dados: nome, sobrenome, turma, notas presença e participação 
+    try:
+        nome = input("Digite o nome da aluna... ")
+    except ValueError:
+        print("Entrada invalida, digite apenas o nome... ")
+
+    try:
+        sobrenome = input("Digite o sobrenome da aluna... ")
+    except ValueError:
+        print("Entrada invalida, digite apenas o sobrenome... ")
+
+    try:
+        turma = input("Digite a turma que a aluna pertence...")
+    except ValueError:
+        print("Entrada invalida, digite apenas a turma... ")
+
+    try:
+        notas = input("Digite as notas da aluna separadas por espaço... ")
+    except ValueError:
+        print("Entrada invalida, digite as notas separadas por espaço... ")
+
+    try:
+        presenca = input("Indique a presença da aluna utilizando: A para ausente e P para presente separando por espaço... ")
+    except ValueError:
+        print("Entrada invalida, digite A para ausente, e P para presente... ")
+
+    try:
+        participacao = input("Digite a nota de participação da aluna... ")
+    except ValueError:
+        print("Entrada invalida digite apenas uma nota de participação para aluna... ")
+
+#TRATAMENTO DE DADOS
+
+#Pegando notas digitadas como strings e convertendo para lista de strings
+    notas = notas.split(" ")
+
+#Covertendo lista str para Lista int
+    notas_int = []
+    for nota in notas:
+        notas_int.append(int(nota)) #pegando todas as string notas do professor e convertendo para numero inteiro
+    notas = notas_int
+
+#Convertendo presenças A e P para booleanos
+    presenca = presenca.split(" ")
+    presenca_convertida = []
+    for A_P in presenca:
+        if A_P == "A":
+            presenca_convertida.append(False)
+        elif A_P == "P":
+            presenca_convertida.append(True)
+        else:
+            presenca_convertida.append("Presença invalida.")
+
+    presenca = presenca_convertida
+
+
+
 def consultar_lista_alunas():
     pass
     #TODO - Implentar a função
