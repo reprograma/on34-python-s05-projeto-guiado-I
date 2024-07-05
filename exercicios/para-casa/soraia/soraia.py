@@ -9,12 +9,12 @@ dataset = {
         "Turma": "Turma B",
         "Notas": [6.0, 7.5, 8.5],
         "Presença": [True, True, True, False, True],
-        "Participação": 7.2
+        "Participação": 5.0
     },
     ("Carla", "Oliveira"): {
         "Turma": "Turma A",
         "Notas": [8.0, 7.5, 8.5],
-        "Presença": [True, True, True, True, True],
+        "Presença": [True, True, True, False, False],
         "Participação": 8.2
     },
     ("Juliana", "Ferreira"): {
@@ -25,7 +25,7 @@ dataset = {
     },
     ("Patrícia", "Souza"): {
         "Turma": "Turma B",
-        "Notas": [7.0, 7.0, 7.5],
+        "Notas": [5.0, 5.0, 5.0],
         "Presença": [True, False, True, True, True],
         "Participação": 7.2
     },
@@ -75,7 +75,7 @@ def main():
         elif cod_opcao == 2: consultar_lista_alunas()
         elif cod_opcao == 3: consultar_faltas_aluna()
         elif cod_opcao == 4: consultar_notas_aluna()
-        #elif cod_opcao == 5: consultar_status_aprovacao()
+        elif cod_opcao == 5: consultar_status_aprovacao()
         elif cod_opcao == 6: print("Encerrando o programa..."); break
         
     
@@ -95,9 +95,9 @@ def obter_opcao():
                                     "Opção: "))
                 
             if codigo_opcao not in [1, 2, 3, 4, 5, 6]:
-                print("Opção inválida. Por favor, escolha uma opção válida (1 a 5).\n")
+                print("Opção inválida. Por favor, escolha uma opção válida (1 a 6).\n")
         except ValueError:
-            print("Entrada inválida. Por favor, digite um número inteiro.\n")
+            print("Entrada inválida. Por favor, digite um número inteiro de 1 a 6.\n")
             
         return codigo_opcao
       
@@ -184,6 +184,30 @@ def consultar_notas_aluna():
   except:
     print("Aluna não encontrada. ")
  
-
+def consultar_status_aprovacao():
+  nome = input("Qual nome da aluna gostaria de consultar o status de aprovação? : ")
+  sobrenome = input("Qual sobrenome da aluna gostaria de consultar o status de aprovação? : ")
+  try:
+        notas = dataset[(nome, sobrenome)]["Notas"]
+        participacao = dataset[(nome, sobrenome)]["Participação"]
+        media = sum(notas) / len(notas)
+        presenca = dataset[(nome, sobrenome)]["Presença"]
+        percentual_presenca = (presenca.count(True) / len(presenca)) * 100
+        
+        
+        if percentual_presenca < 80:
+          print("A aluna está reprovada por falta. ")
+        elif media < 6:
+          print("A aluna está reprovada por nota. ")
+        elif participacao < 6:
+            print("A aluna está reprovada por nota de participação. ")
+        else:
+           print("A aluna está aprovada. ")
+            
+        print(f"A aluna {nome} {sobrenome} está  com média final de {media}")
+        
+  except KeyError:
+        print("Não foi possível consultar o status de aprovação, a aula não conta no sistema. ")
+  
   
 main()

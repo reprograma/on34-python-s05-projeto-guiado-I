@@ -89,3 +89,24 @@ def consultar_notas_aluna():
     
   except:
     print("Aluna não encontrada. ")
+    
+    qtd_faltas = dataset[(nome)]["Presença"].count(False)
+    qtd_aulas = len(dataset[(nome)]["Presença"])
+    percentual_de_faltas = (qtd_faltas / qtd_aulas) * 80
+    
+    #nome = dataset[(nome)]
+  #sobrenome = dataset[(sobrenome)]
+  lista_de_notas = dataset[(nome)]["Notas"]
+  media = float(sum(notas)/len(notas))
+  nota_participacao = dataset[(nome, sobrenome)]["Participação"]
+  presenca = dataset[(nome, sobrenome)]["Presença"]
+  faltas = dataset[(nome, sobrenome)]["Presença"].count(False)
+  
+  if media <  6:
+    print ("Aluna está reporvada. ")
+  elif nota_participacao < 6:
+    print ("Aluna está reporvada. ")
+  elif faltas > 2:
+    print("Aluna está reporvada. ")
+  else: 
+    print("Aluna aprovada. ")
