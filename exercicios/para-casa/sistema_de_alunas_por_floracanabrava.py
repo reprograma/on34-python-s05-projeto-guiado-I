@@ -70,6 +70,8 @@ def consultar_faltas_aluna():
     qtd_faltas = dataset[(nome, sobrenome)]["Presença"].count(False)
     print(f"A quantidade de faltas de {nome} {sobrenome} é {qtd_faltas}.")
 
+    return qtd_faltas
+
     
 def consultar_notas_aluna():
     nome = input("Por favor, nos informe o nome da aluna: ")
@@ -77,10 +79,28 @@ def consultar_notas_aluna():
 
     valores_notas = dataset[(nome, sobrenome)]["Notas"]
     print(f"As três notas de {nome} {sobrenome} são {valores_notas[0]}, {valores_notas[1]}, {valores_notas[2]}.")
+
+    return valores_notas
     
 def consultar_status_aprovacao():
-    pass
-    #TODO - Implentar a função
+     nome = input("Por favor, nos informe o nome da aluna: ")
+     sobrenome = input("Agora informe o sobrenome da aluna: ")
+
+     notas = dataset[(nome, sobrenome)]["Notas"]
+     media = float(sum(notas)/len(notas))
+     qtd_faltas = dataset[(nome, sobrenome)]["Presença"].count(False)
+     percentual_de_faltas = (qtd_faltas / 5) * 100
+     nota_participacao = dataset[(nome, sobrenome)]["Participação"]
+     nota_corte = 6
+
+     if media < nota_corte:
+         print(f"A nota final da aluna {nome} {sobrenome} foi {media:.2f}, abaixo da {nota_corte}. A aluna está reprovada.")
+     elif percentual_de_faltas > 20:
+        print(f"A aluna {nome} {sobrenome} está reprovada por falta e sua média final foi {media:.2f}.")
+     elif nota_participacao <= 6:
+         print(f"A aluna {nome} {sobrenome} está reprovada por participação e sua média final foi {media:.2f}")
+     else:
+         print(f"A aluna {nome} {sobrenome} está aprovada e sua média final foi {media:.2f}")
 
 def obter_notas():
     quantidade_notas = 3
