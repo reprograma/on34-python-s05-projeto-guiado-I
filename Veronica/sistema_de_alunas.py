@@ -35,9 +35,13 @@ def obter_opcao():
             
         return codigo_opcao
     
-def incluir_nova_aluna():
-    pass
-    #TODO - Implentar a função
+def incluir_nova_aluna(): #nome, sobrenome, turma, notas presença e participação 
+    nome = input("Digite o nome da aluna...")
+    sobrenome = input("Digite o sobrenome da aluna...")
+    turma = input("Digite a turma que a aluna pertence...")
+    notas = input("Digite as notas da aluna...")
+    presenca = input("Indique a presença da aluna...")
+    participacao = input("Digite a nota de participação da aluna...")
     
 def consultar_lista_alunas():
     pass
