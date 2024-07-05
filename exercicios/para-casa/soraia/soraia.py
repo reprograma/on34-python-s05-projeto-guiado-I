@@ -174,7 +174,15 @@ def consultar_faltas_aluna():
   except:
     print("Aluna não encontrada. ")
     
- 
+def consultar_notas_aluna():
+  try:
+    nome = input("Nome da aluna: ")
+    sobrenome = input("Sobrenome da aluna: ")
+    lista_de_notas = dataset[(nome,sobrenome)]["Notas"]
+    print(f"A aluna {nome} {sobrenome} está com {lista_de_notas}")
+    
+  except:
+    print("Aluna não encontrada. ")
  
 
   
