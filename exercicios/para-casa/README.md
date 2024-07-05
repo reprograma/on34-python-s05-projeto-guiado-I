@@ -3,6 +3,7 @@
 ## Sistema da Escola Reprograma!
 
 Nós somos da escola Reprograma, e queremos poder utilizar um sistema que nos auxilie no controle de algumas questões dentro do nosso dia-a-dia. Todas os nossos cálculos acabam sendo manuais, o que demanda muito tempo de nossos professores. Quero pedir uma ajuda a você para que nos auxilie nesta difícil missão. Como usuária, quero que este sistema tenha 5 funcionalidades importantes:
+
 - Inclusão de uma nova aluna na minha base de dados
   - O sistema deve permitir a inclusão de uma nova aluna com os seguintes dados: nome, sobrenome, turma, notas (uma lista de números), presença (uma lista de booleanos indicando a presença em cada aula) e participação (um número representando o nota de participação da aluna).
   - Após a inclusão, o sistema deve exibir uma confirmação de que a aluna foi adicionada com sucesso.
