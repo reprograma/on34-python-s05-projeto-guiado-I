@@ -1,18 +1,27 @@
 from dataset_alunas import dataset
 
+dataset
+
 def main():
     print("\n---  Seja bem vinda a Escola do Reprograma!  ---")
     print("Sistema de informações de alunas")
-   
+
     while True:
         cod_opcao = obter_opcao()
         
-        if cod_opcao == 1: incluir_nova_aluna()
-        elif cod_opcao == 2: consultar_lista_alunas()
-        elif cod_opcao == 3: consultar_faltas_aluna()
-        elif cod_opcao == 4: consultar_notas_aluna()
-        elif cod_opcao == 5: consultar_status_aprovacao()
-        elif cod_opcao == 6: print("Encerrando o programa..."); break
+        if cod_opcao == 1:
+            incluir_nova_aluna()
+        elif cod_opcao == 2:
+            consultar_lista_alunas()
+        elif cod_opcao == 3:
+            consultar_faltas_aluna()
+        elif cod_opcao == 4:
+            consultar_notas_aluna()
+        elif cod_opcao == 5:
+            consultar_status_aprovacao()
+        elif cod_opcao == 6:
+            print("Encerrando o programa...")
+            break
 
 def obter_opcao():
     codigo_opcao = 0
@@ -33,45 +42,74 @@ def obter_opcao():
         except ValueError:
             print("Entrada inválida. Por favor, digite um número inteiro.\n")
             
-        return codigo_opcao
+    return codigo_opcao
+
     
 def incluir_nova_aluna():
     print("Insira os seguintes dados: ")
     nome = str(input("Nome da aluna: ")) #Recebo nome da aluna
     sobrenome = str(input("Sobrenome da aluna: ")) #Recebo sobrenome da aluna
     turma = int(input("Turma da aluna (nº): ")) #Recebo nome a turma
-    lista_presenca = consultar_faltas_aluna() #Recebo a lista de presença com 'True' ou 'False'
-    lista_notas = consultar_notas_aluna() #Chamo a função de pegar as notas para alimentar minha lista "notas"
-    nota_participacao = float(input("Participação da aluna: ")) #Recebo nota de participação
+    lista_notas = (input('Digite as notas da aluna separadas por vírgula: '))
+    lista_presenca = bool(input('Digite True para a presença da aluna e False para a sua ausência: '))    
+    nota_participacao = (input("Participação da aluna: ")) #Recebo nota de participação
     print('Aluna adicionada com sucesso!' )
-       
-    return nome
-'''
-def consultar_lista_alunas():
-    nome = str(input('Digite o nome da Aluna: '))
-    sobrenome = str(input('Digite o sobrenome da Aluna: '))
-    consulta = dataset(nome, sobrenome)
-    if consulta:
-        print(f' Nome:{consulta[0]} Sobrenome: {consulta[1]} \n'
-                'Faltas: {consulta[3]}\n'
-                'Notas: {consulta[4]}\n'
-                'Situação: {consulta[5]}\n')
-    else:
-        print("Consulta não encontrada.")
-    return consulta
+    
+    
+    # Armazeno os dados da aluna no dicionário dataset
+    dataset[nome] = {
+        'sobrenome': sobrenome,
+        'turma': turma,
+        'lista_presenca': lista_presenca,
+        'lista_notas': lista_notas,
+        'nota_participacao': nota_participacao
+    }
+    print('Aluna adicionada com sucesso!')
 
-consultar_lista_alunas()'''
+def consultar_lista_alunas():
+    lista_alunas = dataset
+    print(lista_alunas.keys())
+    return lista_alunas
 
 def consultar_faltas_aluna():
-    pass
-    #TODO - Implentar a função
+    nome = str(input("Nome da aluna: ")) #Recebo nome da aluna
+    sobrenome = str(input("Sobrenome da aluna: ")) #Recebo sobrenome da aluna
     
+    if (nome, sobrenome) in dataset:
+        faltas = dataset[(nome, sobrenome)]["Presença"].count(False)
+        total_aulas = len(dataset[(nome, sobrenome)]["Presença"])
+        percentual_presenca = faltas / total_aulas * 100      
+        print(f'Faltas de {nome}: {faltas}')
+        return percentual_presenca
+    else:
+        print('Aluna não encontrada')   
+   
 def consultar_notas_aluna():
-    pass
-    #TODO - Implentar a função
+    nome = str(input('Nome da aluna: '))
+    sobrenome = str(input('Sobrenome da aluna: '))    
+    if (nome, sobrenome) in dataset:
+        notas = dataset[(nome, sobrenome)]['Notas']
+        media = sum(notas) / len(notas)       
+        print(f'Notas da {nome}: {notas}')
+        return media
+    else:
+        print('Aluna não encontrada')   
     
 def consultar_status_aprovacao():
-    pass
-    #TODO - Implentar a função
-    
+    nome = str(input('Nome da aluna: '))
+    sobrenome = str(input('Sobrenome da aluna: '))
+    if (nome, sobrenome) in dataset:
+        notas = dataset[(nome, sobrenome)]['Notas']
+        media = (sum(notas)) / len(notas)     
+        faltas = dataset[(nome, sobrenome)]["Presença"].count(False)
+        total_aulas = len(dataset[(nome, sobrenome)]["Presença"])
+        percentual_presenca = faltas / total_aulas * 100    
+        participacao = dataset[(nome, sobrenome)]['Participação']
+        if media >= 6  and participacao >= 6:                     
+            print(f'Media: {media:.2f}\nFaltas: {percentual_presenca}\nParticipação: {participacao}\nSituação da aluna {nome}: APROVADA!!!')
+        else:
+            print(f'Media: {media:.2f}\nFaltas: {percentual_presenca}\nParticipação: {participacao}\nSituação da aluna {nome}: Reprovada.')
+        
+      
+
 main()

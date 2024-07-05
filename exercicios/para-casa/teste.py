@@ -1,23 +1,32 @@
 from dataset_alunas import dataset
 
+dataset
+
 def main():
     print("\n---  Seja bem vinda a Escola do Reprograma!  ---")
     print("Sistema de informações de alunas")
-    
+
     while True:
         cod_opcao = obter_opcao()
         
-        if cod_opcao == 1: incluir_nova_aluna()
-        elif cod_opcao == 2: consultar_lista_alunas()
-        elif cod_opcao == 3: consultar_faltas_aluna()
-        elif cod_opcao == 4: consultar_notas_aluna()
-       # elif cod_opcao == 5: consultar_status_aprovacao()
-        elif cod_opcao == 6: print("Encerrando o programa..."); break
+        if cod_opcao == 1:
+            incluir_nova_aluna()
+        elif cod_opcao == 2:
+            consultar_lista_alunas()
+        elif cod_opcao == 3:
+            consultar_faltas_aluna()
+        elif cod_opcao == 4:
+            consultar_notas_aluna()
+        elif cod_opcao == 5:
+            consultar_status_aprovacao()
+        elif cod_opcao == 6:
+            print("Encerrando o programa...")
+            break
 
 def obter_opcao():
     codigo_opcao = 0
 
-    while codigo_opcao not in [1, 2, 3, 4, 5]:
+    while codigo_opcao not in [1, 2, 3, 4, 5, 6]:
         try:
             codigo_opcao = int(input("\nEscolha uma opção:\n"
                                     "1 - Incluir uma nova aluna\n"
@@ -28,76 +37,78 @@ def obter_opcao():
                                     "6 - Sair do sistema\n"
                                     "Opção: "))
                 
-            if codigo_opcao not in [1, 2, 3, 4, 5]:
+            if codigo_opcao not in [1, 2, 3, 4, 5, 6]:
                 print("Opção inválida. Por favor, escolha uma opção válida (1 a 5).\n")
         except ValueError:
             print("Entrada inválida. Por favor, digite um número inteiro.\n")
             
-        return codigo_opcao
+    return codigo_opcao
+
+  
     
 def incluir_nova_aluna():
     print("Insira os seguintes dados: ")
     nome = str(input("Nome da aluna: ")) #Recebo nome da aluna
     sobrenome = str(input("Sobrenome da aluna: ")) #Recebo sobrenome da aluna
     turma = int(input("Turma da aluna (nº): ")) #Recebo nome a turma
-    lista_presenca = consultar_faltas_aluna() #Recebo a lista de presença com 'True' ou 'False'
-    lista_notas = consultar_notas_aluna() #Chamo a função de pegar as notas para alimentar minha lista "notas"
-    nota_participacao = float(input("Participação da aluna: ")) #Recebo nota de participação
+    lista_notas = (input('Digite as notas da aluna separadas por vírgula: '))
+    lista_presenca = bool(input('Digite True para a presença da aluna e False para a sua ausência: '))    
+    nota_participacao = (input("Participação da aluna: ")) #Recebo nota de participação
     print('Aluna adicionada com sucesso!' )
-   
     
-    return nome
+    
+    # Armazeno os dados da aluna no dicionário dataset
+    dataset[nome] = {
+        'sobrenome': sobrenome,
+        'turma': turma,
+        'lista_presenca': lista_presenca,
+        'lista_notas': lista_notas,
+        'nota_participacao': nota_participacao
+    }
+    print('Aluna adicionada com sucesso!')
 
-incluir_nova_aluna()
-
-def consultar_lista_alunas(dataset):
-    nome = str(input('Digite o nome da Aluna: '))
-    sobrenome = str(input('Digite o sobrenome da Aluna: '))
-    for nome, sobrenome in dataset:
-        if nome and sobrenome == True:
-            print(nome, sobrenome)
-
-consultar_lista_alunas()
+def consultar_lista_alunas():
+    lista_alunas = dataset
+    print(lista_alunas.keys())
+    return lista_alunas
 
 def consultar_faltas_aluna():
-    quantidade_aulas = input("Quantidade de aulas: ") #Recebo a quantidade de aulas
-    aulas = [] #Criei uma lista para receber a presença
-    
-    for contador in range(int(quantidade_aulas)):
-        while True:    
-            presenca = input(f"Insira a presença da aula #{contador + 1}: ")        
-            try: #Faço uma tentativa de adicionar uma nota na lista
-                chamada = bool(presenca) #Valido se entrada é booleana
-                aulas.append(presenca) #Insiro a aula na minha lista "aulas"                
-                break #Caso ok, posso sair do loop e seguir com for
-            except ValueError: #Caso dê um problema, ele volta ao início do while e tenta novamente
-                        print("Entrada inválida. Por favor, insira True ou False.")
-                    
-    print(aulas)
-         
-consultar_faltas_aluna()
-
+    nome = str(input("Nome da aluna: ")) #Recebo nome da aluna
+    sobrenome = str(input("Sobrenome da aluna: ")) #Recebo sobrenome da aluna    
+    if (nome, sobrenome) in dataset:
+        faltas = dataset[(nome, sobrenome)]["Presença"].count(False)
+        percentual_presenca = faltas / len(dataset[(nome, sobrenome)]["Presença"])
+        percentual_presenca >=  80
+        print(f'Faltas de {nome}: {faltas}')
+        return percentual_presenca
+    else:
+        print('Aluna não encontrada')   
+   
 def consultar_notas_aluna():
-    quantidade_notas = input("Quantidade de notas: ") #Recebo a quantidade de notas
-    notas = [] #Criei uma lista para receber as notas
+    nome = str(input('Nome da aluna: '))
+    sobrenome = str(input('Sobrenome da aluna: '))
+    notas = dataset[(nome, sobrenome)]['Notas']
+    if (nome, sobrenome) in dataset:
+        media = sum(notas) / len(notas)
+        print(f'Notas da {nome}: {notas}')
+        return media
+    else:
+        print('Aluna não encontrada')   
+    
+def consultar_status_aprovacao():
+    nome = str(input('Nome da aluna: '))
+    sobrenome = str(input('Sobrenome da aluna: '))
+    if (nome, sobrenome) in dataset:
+        notas = dataset[(nome, sobrenome)]['Notas']           
+        faltas = dataset[(nome, sobrenome)]["Presença"].count(False)
+        participacao = dataset[(nome, sobrenome)]["Participação"]
+        media = (sum(notas)) / len(notas) 
+        percentual_presenca = faltas / len(dataset[(nome, sobrenome)]["Presença"])
+             
+        media >= 6 and faltas >=80 and participacao >= 6             
+        print(f'Média: {media}, Percentual de presença: {faltas}% e Participação: {participacao} - Situação da aluna {nome}: APROVADA!!!')
+    else:
+        print(f'Média: {media:.2f},\n Percentual de presença: {faltas}% \nParticipação: {participacao} - Situação da aluna {nome}: REPROVADA.')
 
-    for contador in range(int(quantidade_notas)): 
-        #Usamos o for em contagens definidas - o contador vai de 0 até quantidade de notas
-        while True: #Usamos quando não sabemos a quantidade de repetições    
-            entrada = input(f"Insira a nota #{contador + 1}: ") #Para cada nota, insiro o valor - {contador + 1} indica a nota atual
-            try: #Faço uma tentativa de adicionar uma nota na lista
-                nota = float(entrada) #Converto a entrada em float
-                notas.append(nota) #Insiro a nota na minha lista "notas"
-                break #Caso ok, posso sair do loop e seguir com for
-            except ValueError: #Caso dê um problema, ele volta ao início do while e tenta novamente
-                print("Entrada inválida. Por favor, insira um número válido.")
-
-    print(notas)          
-    return notas
-
-consultar_notas_aluna()
 
 main()
-
-
-   
