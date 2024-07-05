@@ -79,3 +79,13 @@ def lista_de_presenca():
     return presenca
   
 lista_de_presenca()
+
+def consultar_notas_aluna():
+  try:
+    nome = input("Nome da aluna: ")
+    sobrenome = input("Sobrenome da aluna: ")
+    lista_de_notas = dataset[(nome,sobrenome)]["Notas"]
+    print(f"A aluna {nome} {sobrenome} está com {lista_de_notas}")
+    
+  except:
+    print("Aluna não encontrada. ")

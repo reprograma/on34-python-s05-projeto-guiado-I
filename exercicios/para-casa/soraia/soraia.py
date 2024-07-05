@@ -74,7 +74,7 @@ def main():
         if cod_opcao == 1: incluir_nova_aluna()
         elif cod_opcao == 2: consultar_lista_alunas()
         elif cod_opcao == 3: consultar_faltas_aluna()
-        #elif cod_opcao == 4: consultar_notas_aluna()
+        elif cod_opcao == 4: consultar_notas_aluna()
         #elif cod_opcao == 5: consultar_status_aprovacao()
         elif cod_opcao == 6: print("Encerrando o programa..."); break
         
@@ -83,7 +83,7 @@ def main():
 def obter_opcao():
     codigo_opcao = 0
 
-    while codigo_opcao not in [1, 2, 3, 4, 5]:
+    while codigo_opcao not in [1, 2, 3, 4, 5, 6]:
         try:
             codigo_opcao = int(input("\nEscolha uma opção:\n"
                                     "1 - Incluir uma nova aluna\n"
@@ -94,7 +94,7 @@ def obter_opcao():
                                     "6 - Sair do sistema\n"
                                     "Opção: "))
                 
-            if codigo_opcao not in [1, 2, 3, 4, 5]:
+            if codigo_opcao not in [1, 2, 3, 4, 5, 6]:
                 print("Opção inválida. Por favor, escolha uma opção válida (1 a 5).\n")
         except ValueError:
             print("Entrada inválida. Por favor, digite um número inteiro.\n")
@@ -163,8 +163,18 @@ def incluir_nova_aluna():
 def consultar_lista_alunas():
     print(dataset.keys())
     
+    
+def consultar_faltas_aluna():
+  try:
+    nome = input("Nome da aluna: ")
+    sobrenome = input("Sobrenome da aluna: ")
+    lista_de_presenca = dataset[(nome,sobrenome)]["Presença"]
+    print(f"A aluna {nome} {sobrenome} está com {lista_de_presenca}")
+    
+  except:
+    print("Aluna não encontrada. ")
+    
  
-  
  
 
   
