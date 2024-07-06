@@ -68,14 +68,17 @@ def incluir_nova_aluna(dataset): #Pegando os dados: nome, sobrenome, turma, nota
 
 #TRATAMENTO DE DADOS
 
+
 #Pegando notas digitadas como strings e convertendo para lista de strings
     notas = notas.split(" ")
+
 
 #Covertendo lista str para Lista int
     notas_int = []
     for nota in notas:
         notas_int.append(int(nota)) #pegando todas as string notas do professor e convertendo para numero inteiro
     notas = notas_int
+
 
 #Convertendo presenças A e P para booleanos
     presenca = presenca.split(" ")
@@ -90,19 +93,20 @@ def incluir_nova_aluna(dataset): #Pegando os dados: nome, sobrenome, turma, nota
 
     presenca = presenca_convertida
 
+
 #Inclusão da aluna no dataset
 
     dataset[nome, sobrenome] = {"Turma": turma, "Notas": notas, "Presença": presenca, "Participação": participacao}
 
 def consultar_lista_alunas(dataset):
-    chaves = list(dataset.keys()) #Pega as chaves do dicionario
+    chaves = list(dataset.keys()) #Pegando as chaves do dicionario
 
     for aluna in chaves:
-        print("Aluna: ", aluna[0], aluna[1]) #Printa Aluna: (nome e sobrenome da aluna)
+        print("Aluna: ", aluna[0], aluna[1]) #Print aluna: (nome e sobrenome da aluna)
 
 def consultar_faltas_aluna(dataset):
     nome_aluna_escolhida = input("Digite o nome e o sobrenome da alunas que querira consultar as faltas: ")
-    nome_aluna = tuple(nome_aluna_escolhida.split(" ")) #Pega a str com nome e sobrenome e converte em uma tupla
+    nome_aluna = tuple(nome_aluna_escolhida.split(" ")) #Pegando a string com nome e sobrenome e convertendo em uma tupla
 
     presenca = dataset[nome_aluna]["Presença"]
     n_faltas = 0
@@ -119,7 +123,7 @@ def consultar_faltas_aluna(dataset):
 
 def consultar_notas_aluna(dataset):
     nome_aluna_escolhida = input("Digite o nome e o sobrenome da alunas que querira consultar as faltas: ")
-    nome_aluna = tuple(nome_aluna_escolhida.split(" ")) #Pega a str com nome e sobrenome e converte em uma tupla
+    nome_aluna = tuple(nome_aluna_escolhida.split(" ")) #Pegando a string com nome e sobrenome e converte em uma tupla
 
     notas = dataset[nome_aluna]["Notas"]
     avaliacao = 1
@@ -132,13 +136,15 @@ def consultar_notas_aluna(dataset):
 
 def consultar_status_aprovacao():
     nome_aluna_escolhida = input("Digite o nome e sobrenome da aluna que queira consultar o status de aprovação: ")
-    nome_aluna = tuple(nome_aluna_escolhida.split(" ")) #Pega a str com o nome e sobrenome e converte em uma tupla
+    nome_aluna = tuple(nome_aluna_escolhida.split(" ")) #Pegando a string com nome e sobrenome e converte em uma tupla
+
     nota_corte = 6
 
     print("Para sabermos o status de aprovação da aluna vamos ter que consultar sua nota, participação e presença em aulas")
     print("Vamos começar pela nota.")
-    notas = consultar_notas_aluna(dataset) #Chama a função para consultar as notas da aluna
-    media_notas = sum(notas) / len(notas) #Calcula a média com a somas das notas dividido pelo numero de notas
+
+    notas = consultar_notas_aluna(dataset) #Chamando a função para consultar as notas da aluna
+    media_notas = sum(notas) / len(notas) #Calculando a média: com a somas das notas, dividido pelo numero de notas
 
     print("Agora sua participação.")
     participacao = dataset[nome_aluna]["Participação"]
@@ -153,5 +159,7 @@ def consultar_status_aprovacao():
     if media_notas >= 6 and porcentagem_presenca >= 80 and participacao >= 6:
         print("A aluna", nome_aluna_escolhida, "esta aprovada.")
     else: print("A aluna", nome_aluna_escolhida, "esta reprovada.")
-    
+
+
+
 main()
