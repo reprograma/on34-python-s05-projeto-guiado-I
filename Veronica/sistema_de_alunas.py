@@ -94,10 +94,12 @@ def incluir_nova_aluna(dataset): #Pegando os dados: nome, sobrenome, turma, nota
 
     dataset[nome, sobrenome] = {"Turma": turma, "Notas": notas, "Presença": presenca, "Participação": participacao}
 
+def consultar_lista_alunas(dataset):
+    chaves = list(dataset.keys()) #Pega as chaves do dicionario
 
-def consultar_lista_alunas():
-    
-    
+    for aluna in chaves:
+        print("Aluna: ", aluna[0], aluna[1]) #Printa Aluna: (nome e sobrenome da aluna)
+
 def consultar_faltas_aluna():
     pass
     #TODO - Implentar a função
