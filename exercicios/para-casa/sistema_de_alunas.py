@@ -37,17 +37,38 @@ def obter_opcao():
     
 def incluir_nova_aluna():
     pass
-    #TODO - Implentar a função
+    from dataset_alunas import dataset
+    nome_completo = input("\nDigite o nome completo da nova aluna: ")
+    sobrenome = input("Digite o sobrenome da aluna: ")
+    turma = input("Digite a turma da aluna: ")
+    
+
+
     
 def consultar_lista_alunas():
     pass
-    #TODO - Implentar a função
+    if  dataset :
+        print("\n Lista de Alunas Cadastradas:") 
+    for idx, aluna in enumerate(dataset ):
+            print(f"{idx}. {aluna['nome']} {aluna['sobrenome']} - Turma: {aluna['turma']}")
+    else:
+        print("\n não cadastrada:")
+        
     
 def consultar_faltas_aluna():
+    nome= input("por favor, nos informe o nome da aluna: ")
+    sobrenome= input(" agora  nos informe o sobrenome da aluna :")
+
+    qtd_faltas = dataset[(nome, sobrenome)] ["presença"].count(False)
+    print((f"A quantidade de faltas de {nome} {sobrenome} são {qtd_faltas[0]}, {qtd_faltas[1]}, {qtd_faltas[2]} "))
     pass
     #TODO - Implentar a função
     
 def consultar_notas_aluna():
+    nome = input("por favor, nos informe o nome da aluna: ")
+    sobrenome= input(" agora  nos informe o sobrenome da aluna :")
+    valor_notas = dataset[(nome, sobrenome )] ["notas"]
+    print(f"As três notas de {nome} {sobrenome} é {valor_notas}. ")
     pass
     #TODO - Implentar a função
     
