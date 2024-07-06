@@ -115,9 +115,16 @@ def consultar_faltas_aluna(dataset):
 
 
 def consultar_notas_aluna():
-    pass
-    #TODO - Implentar a função
-    
+    nome_aluna_escolhida = input("Digite o nome e o sobrenome da alunas que querira consultar as faltas: ")
+    nome_aluna = tuple(nome_aluna_escolhida.split(" ")) #Pega a str com nome e sobrenome e converte em uma tupla
+
+    notas = dataset[nome_aluna]["Notas"]
+    avaliacao = 1
+    print("A aluna", nome_aluna_escolhida, "teve às seguintes notas:")
+    for nota in notas:
+        print("Avaliação:", avaliacao, "Nota:", nota)
+        avaliacao += 1
+        
 def consultar_status_aprovacao():
     pass
     #TODO - Implentar a função
