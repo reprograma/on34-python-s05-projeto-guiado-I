@@ -100,10 +100,20 @@ def consultar_lista_alunas(dataset):
     for aluna in chaves:
         print("Aluna: ", aluna[0], aluna[1]) #Printa Aluna: (nome e sobrenome da aluna)
 
-def consultar_faltas_aluna():
-    pass
-    #TODO - Implentar a função
-    
+def consultar_faltas_aluna(dataset):
+    nome_aluna_escolhida = input("Digite o nome e o sobrenome da alunas que querira consultar as faltas: ")
+    nome_aluna = tuple(nome_aluna_escolhida.split(" ")) #Pega a str com nome e sobrenome e converte em uma tupla
+
+    presenca = dataset[nome_aluna]["Presença"]
+    n_faltas = 0
+    n_presencas = 0
+
+    for pren in presenca:
+        if pren == False: n_faltas += 1
+        else: n_presencas += 1
+    print("A aluna", nome_aluna_escolhida, "tem", n_faltas, "faltas.")
+
+
 def consultar_notas_aluna():
     pass
     #TODO - Implentar a função
@@ -112,5 +122,6 @@ def consultar_status_aprovacao():
     pass
     #TODO - Implentar a função
     
+
 
 main()
