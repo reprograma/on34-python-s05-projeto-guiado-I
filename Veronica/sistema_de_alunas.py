@@ -90,6 +90,9 @@ def incluir_nova_aluna(dataset): #Pegando os dados: nome, sobrenome, turma, nota
 
     presenca = presenca_convertida
 
+#Inclusão da aluna no dataset
+
+    dataset[nome, sobrenome] = {"Turma": turma, "Notas": notas, "Presença": presenca, "Participação": participacao}
 
 
 def consultar_lista_alunas():
