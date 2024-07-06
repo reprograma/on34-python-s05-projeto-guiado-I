@@ -96,8 +96,7 @@ def incluir_nova_aluna(dataset): #Pegando os dados: nome, sobrenome, turma, nota
 
 
 def consultar_lista_alunas():
-    pass
-    #TODO - Implentar a função
+    
     
 def consultar_faltas_aluna():
     pass
