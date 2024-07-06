@@ -113,8 +113,11 @@ def consultar_faltas_aluna(dataset):
         else: n_presencas += 1
     print("A aluna", nome_aluna_escolhida, "tem", n_faltas, "faltas.")
 
+    porcentagem_presenca = (n_presencas / (n_faltas + n_presencas)) * 100
 
-def consultar_notas_aluna():
+    return porcentagem_presenca
+
+def consultar_notas_aluna(dataset):
     nome_aluna_escolhida = input("Digite o nome e o sobrenome da alunas que querira consultar as faltas: ")
     nome_aluna = tuple(nome_aluna_escolhida.split(" ")) #Pega a str com nome e sobrenome e converte em uma tupla
 
@@ -124,11 +127,31 @@ def consultar_notas_aluna():
     for nota in notas:
         print("Avaliação:", avaliacao, "Nota:", nota)
         avaliacao += 1
-        
+
+    return notas
+
 def consultar_status_aprovacao():
-    pass
-    #TODO - Implentar a função
+    nome_aluna_escolhida = input("Digite o nome e sobrenome da aluna que queira consultar o status de aprovação: ")
+    nome_aluna = tuple(nome_aluna_escolhida.split(" ")) #Pega a str com o nome e sobrenome e converte em uma tupla
+    nota_corte = 6
+
+    print("Para sabermos o status de aprovação da aluna vamos ter que consultar sua nota, participação e presença em aulas")
+    print("Vamos começar pela nota.")
+    notas = consultar_notas_aluna(dataset) #Chama a função para consultar as notas da aluna
+    media_notas = sum(notas) / len(notas) #Calcula a média com a somas das notas dividido pelo numero de notas
+
+    print("Agora sua participação.")
+    participacao = dataset[nome_aluna]["Participação"]
+    print("A aluna", nome_aluna_escolhida, "teve nota", participacao, "de participação.")
+
+    print("Por ultimo a presença.")
+    porcentagem_presenca = consultar_faltas_aluna(dataset)
+    print("A aluna", nome_aluna_escolhida, "teve", int(porcentagem_presenca), "% de presença.")
+
+    print("")
+
+    if media_notas >= 6 and porcentagem_presenca >= 80 and participacao >= 6:
+        print("A aluna", nome_aluna_escolhida, "esta aprovada.")
+    else: print("A aluna", nome_aluna_escolhida, "esta reprovada.")
     
-
-
 main()
