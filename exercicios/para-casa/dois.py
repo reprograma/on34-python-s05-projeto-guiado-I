@@ -17,7 +17,7 @@ def main():
 def obter_opcao():
     codigo_opcao = 0
 
-    while codigo_opcao not in [1, 2, 3, 4, 5, 6]:
+    while codigo_opcao not in [1, 2, 3, 4, 5]:
         try:
             codigo_opcao = int(input("\nEscolha uma opção:\n"
                                     "1 - Incluir uma nova aluna\n"
@@ -28,7 +28,7 @@ def obter_opcao():
                                     "6 - Sair do sistema\n"
                                     "Opção: "))
                 
-            if codigo_opcao not in [1, 2, 3, 4, 5, 6]:
+            if codigo_opcao not in [1, 2, 3, 4, 5]:
                 print("Opção inválida. Por favor, escolha uma opção válida (1 a 5).\n")
         except ValueError:
             print("Entrada inválida. Por favor, digite um número inteiro.\n")
@@ -40,21 +40,31 @@ def incluir_nova_aluna():
     nome = input("Nome da aluna: ") #Recebo nome da aluna
     sobrenome = input("Sobrenome da aluna: ") #Recebo sobrenome da aluna
     turma = input("Turma da aluna (nº): ") #Recebo nome a turma
-    #lista_presenca = consultar_faltas_aluna() #Recebo a lista de presença com 'True' ou 'False'
-    #lista_notas = consultar_notas_aluna() #Chamo a função de pegar as notas para alimentar minha lista "notas"
+    lista_presenca = consultar_faltas_aluna() #Recebo a lista de presença com 'True' ou 'False'
+    lista_notas = consultar_notas_aluna() #Chamo a função de pegar as notas para alimentar minha lista "notas"
     nota_participacao = float(input("Participação da aluna: ")) #Recebo nota de participação
     
-    #salvar_dados_aluna(nome, sobrenome, turma, nota_participacao)
+    salvar_dados_aluna(nome, sobrenome, turma, lista_presenca, lista_notas, nota_participacao)
     print('Aluna adicionada com sucesso!' )
-    
     return nome
 
-incluir_nova_aluna()
-nova_aluna = incluir_nova_aluna
+def consultar_lista_alunas(nome):
+    for dado in incluir_nova_aluna:
+        lista = (dataset[(nome)])
+    print(lista)    
+    return lista
 
+def salvar_dados_aluna(nome, sobrenome, turma, lista_presenca, lista_notas, nota_participacao):
+    chave = (nome, sobrenome, lista_presenca, lista_notas, nota_participacao) #Crio uma tupla com o nome
+    dataset[chave] = { #Adiciono no dicionário os dados que peguei na função obter_dados_aluna
+        "Turma": turma,
+        "Presença": lista_presenca,
+        "Notas": lista_notas,
+        "Participação": nota_participacao
+    }
+print(consultar_lista_alunas)
 
-
-
+    
 def consultar_faltas_aluna():
     quantidade_aulas = input("Quantidade de aulas: ") #Recebo a quantidade de aulas
     aulas = [] #Criei uma lista para receber a presença
@@ -64,19 +74,18 @@ def consultar_faltas_aluna():
             presenca = input(f"Insira a presença da aula #{contador + 1}: ")        
             try: #Faço uma tentativa de adicionar uma nota na lista
                 chamada = bool(presenca) #Valido se entrada é booleana
-                aulas.append(presenca) #Insiro a aula na minha lista "aulas"                
+                aulas.append(presenca) #Insiro a aula na minha lista "aulas"
                 break #Caso ok, posso sair do loop e seguir com for
             except ValueError: #Caso dê um problema, ele volta ao início do while e tenta novamente
                         print("Entrada inválida. Por favor, insira True ou False.")
-                    
-    print(aulas)
          
-consultar_faltas_aluna()
+
+    return aulas
+
 
 def consultar_notas_aluna():
     quantidade_notas = input("Quantidade de notas: ") #Recebo a quantidade de notas
     notas = [] #Criei uma lista para receber as notas
-
     for contador in range(int(quantidade_notas)): 
         #Usamos o for em contagens definidas - o contador vai de 0 até quantidade de notas
         while True: #Usamos quando não sabemos a quantidade de repetições    
@@ -87,18 +96,12 @@ def consultar_notas_aluna():
                 break #Caso ok, posso sair do loop e seguir com for
             except ValueError: #Caso dê um problema, ele volta ao início do while e tenta novamente
                 print("Entrada inválida. Por favor, insira um número válido.")
-
-    print(notas)          
+                
     return notas
+    
+def consultar_status_aprovacao():
+    pass
+    #TODO - Implentar a função
 
-consultar_notas_aluna()
-
-def consultar_lista_alunas():
-    if incluir_nova_aluna == True:
-        print(incluir_nova_aluna)
-    else:
-        print('Não há registros.')
-
-consultar_lista_alunas()
-
+ 
 main()
