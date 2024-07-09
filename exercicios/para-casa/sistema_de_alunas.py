@@ -36,8 +36,8 @@ def obter_opcao():
         return codigo_opcao
     
 def incluir_nova_aluna():
-    pass
-    #TODO - Implentar a função
+    nome = input("Qual o nome e sobrenome da nova aluna?: ")
+    nome = split{,}
     
 def consultar_lista_alunas():
     pass
