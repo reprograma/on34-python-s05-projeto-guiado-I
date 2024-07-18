@@ -35,12 +35,14 @@ def obter_presenca():
     for contador in range(int(quantidade_aulas)): 
         #Usamos o for em contagens definidas - o contador vai de 0 até quantidade de aulas
         while True: #Usamos quando não sabemos a quantidade de repetições    
-            entrada = input(f"Insira a presença da aula #{contador + 1}: ") #Para cada nota, insiro o valor - {contador + 1} indica a aula atual
-            try: #Faço uma tentativa de adicionar uma nota na lista
-                presenca = eval(entrada) #Valido se entrada é booleana
-                aulas.append(presenca) #Insiro a aula na minha lista "aulas"
+            entrada = input(f"Insira a presença da aula #{contador + 1}: ").lower() #Para cada nota, insiro o valor - {contador + 1} indica a aula atual e lower, torno a entrada em caixa baixa
+            if entrada in ["true", "false"]: #Se a entrada for True ou False
+                if entrada == 'true': #Se é true, insiro True em aulas
+                    aulas.append(True)
+                else: #Caso não, insiro false
+                    aulas.append(False)
                 break #Caso ok, posso sair do loop e seguir com for
-            except NameError: #Caso dê um problema, ele volta ao início do while e tenta novamente
+            else:
                 print("Entrada inválida. Por favor, insira True ou False.")
    
     return aulas
@@ -68,7 +70,8 @@ def salvar_dados_aluna(nome, turma, notas, lista_presenca, nota_participacao):
         "Turma": turma,
         "Notas": notas,
         "Presença": lista_presenca,
-        "Participação": nota_participacao
+        "Participação": nota_participacao,
+        "Recuperação": False
     }
 
 
@@ -95,7 +98,7 @@ def obter_resultado(nome, media_ponderada):
         return "Reprovada por falta"
     
     if media_ponderada < 6:
-       if media_ponderada >= 4:
+       if media_ponderada >= 4 and dataset[(nome)]["Recuperação"] == True:
            return "Em recuperação"
        else:
            return "Reprovada"
@@ -108,6 +111,7 @@ def obter_recuperacao(nome):
     if recuperacao == "S": #Verifica se a pessoa colocou S - Sim para recuperação
         nota_recuperacao = float(input("Insira a nota da prova de recuperação: ")) #Recebe a nota de recuperação
         dataset[(nome)]["Nota de Recuperação"] = nota_recuperacao #Salva a nota de recuperação
+        dataset[(nome)]["Recuperação"] = True
         return True #Retorna True (Verdadeiro) para recuperação
     else:
         return False #Retorna False (Falso) para recuperação
