@@ -58,5 +58,23 @@ dataset = {
         "Notas": [8.0, 7.5, 7.0],
         "Presença": [True, True, True, False, True],
         "Participação": 7.5
+    },
+    ("Laura", "Oliveira"): {
+        "Turma": "Turma B",
+        "Notas": [5, 4.5, 5.6],
+        "Presença": [True, True, True, True, True],
+        "Participação": 8.0
+    },
+    ("Mariana", "Costa"): {
+        "Turma": "Turma A",
+        "Notas": [9.0, 9.0, 8.5],
+        "Presença": [False, False, False, True, True],
+        "Participação": 8.8
+    },
+    ("Beatriz", "Fernandes"): {
+        "Turma": "Turma C",
+        "Notas": [8.0, 7.5, 7.0],
+        "Presença": [True, True, True, False, True],
+        "Participação": 5.5
     }
 }
