@@ -1,4 +1,4 @@
-from dataset_alunas import dataset
+from dataset_alunas2 import dataset
 
 def main():
     print("\n---  Seja bem vinda a Escola do Reprograma!  ---")
