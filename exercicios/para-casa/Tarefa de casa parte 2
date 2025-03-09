@@ -1,0 +1,113 @@
+from dataset_alunas import dataset
+
+def main():
+    print("\n---  Seja bem-vinda à Escola do Reprograma!  ---")
+    print("Sistema de informações de alunas")
+    
+    while True:
+        cod_opcao = obter_opcao()
+        
+        if cod_opcao == 1:
+            incluir_nova_aluna()
+        elif cod_opcao == 2:
+            consultar_lista_alunas()
+        elif cod_opcao == 3:
+            consultar_faltas_aluna()
+        elif cod_opcao == 4:
+            consultar_notas_aluna()
+        elif cod_opcao == 5:
+            consultar_status_aprovacao()
+        elif cod_opcao == 6:
+            print("Encerrando o programa...")
+            break
+
+def obter_opcao():
+    codigo_opcao = 0
+
+    while codigo_opcao not in [1, 2, 3, 4, 5, 6]:
+        try:
+            codigo_opcao = int(input("\nEscolha uma opção:\n"
+                                     "1 - Incluir uma nova aluna\n"
+                                     "2 - Consultar lista de alunas\n"
+                                     "3 - Consultar faltas da aluna\n"
+                                     "4 - Consultar notas da aluna\n"
+                                     "5 - Consultar status de aprovação\n"
+                                     "6 - Sair do sistema\n"
+                                     "Opção: "))
+                
+            if codigo_opcao not in [1, 2, 3, 4, 5, 6]:
+                print("Opção inválida. Por favor, escolha uma opção válida (1 a 6).\n")
+        except ValueError:
+            print("Entrada inválida. Por favor, digite um número inteiro.\n")
+    
+    return codigo_opcao
+
+
+def incluir_nova_aluna():
+    pass
+    print("Inserir os seguintes dados: ")
+    nome = input("Nome da aluna: ")
+    sobrennome = input("Sobreno da aluna: ")
+    turma = input("Turma da aluna: ")
+    lista_presenca = obter_presenca()
+    nota_participacao = float(input("Participação da aluna: "))
+    try:
+     notas = obter_notas()
+     print("Aluna adicionada com sucesso")
+    except ValueError:
+        print("Entrada inválida. Por favor, insira um número válido.")
+
+
+
+    return nome
+
+def obter_presenca():
+    quantidade_aulas = input("Quantidade de aulas: ")
+    aulas = []
+
+    for contador in range(int(quantidade_aulas)):
+
+        while True:
+            entrada = input(f"Insira a presença da aula #{contador + 1}: ")
+            try:
+                presenca = eval(entrada)
+                aulas.append(presenca)
+                break
+            except NameError:
+                print("Entrada inválida. Por favor, insira True ou False.")
+
+    return aulas
+
+def obter_notas():
+    quantidade_notas = input("Quantidade de notas: ")
+    notas = []
+    for contador in range(int(quantidade_notas)):
+        while True:
+              entrada = input(f"Insira a nota #{contador + 1}: ")
+              try:
+                nota = float(entrada)
+                notas.append(nota)
+                break
+              except ValueError:
+                print("Entrada inválida. Por favor, insira um número válido.")
+
+    return notas
+
+def salvar_dados_aluna(nome, sobrenome, turma, notas, lista_presenca, nota_participacao):
+    chave = (nome)
+    dataset[chave] = {
+        "Sobrenome": sobrenome,
+        "Turma": turma,
+        "Notas": notas,
+        "Presença": lista_presenca,
+        "Participação": nota_participacao
+        }
+    print(f"A aluna: {dataset[('Luana')]} foi incluida com sucesso")
+
+
+
+def consultar_lista_alunas():
+    pass
+    #lista_alunas = (nome, sobrenome)
+    for nome in dataset:
+     print(f"Nome: {nome}")
